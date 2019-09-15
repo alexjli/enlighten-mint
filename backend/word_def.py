@@ -8,7 +8,15 @@ dm = datamuse.Datamuse()
 
 class Enlightenmint:
 
-    def __init__(self, learn_words=[]):
+    def __init__(self, learn_words=set()):
+        """
+        Creates a new Enlightenment object, which can return
+        definitions for words and other dictionary operations,
+        and will record what words the user is learning
+
+        learn_words: set, the set of initial words the user will learn.
+            by default is an empty set
+        """
         self.learn_words = learn_words
 
     def define(self, word: str, lang: str='en'):
@@ -22,7 +30,6 @@ class Enlightenmint:
             is being searched in (default English, or 'en')
         return: the text definition of a word with example usages and related words
         """
-        self.learn_words.append(word)
 
         # the Google Dictionary API will return a text string which is 
         # formatted in a very specific way:
@@ -34,30 +41,64 @@ class Enlightenmint:
         # each dictionary representing a separate usage, 
         # eg 'object' as 'an aim' and 'a material thing'
         r = requests.get('https://mydictionaryapi.appspot.com', params={'define': word, 'lang': lang})
-        lemmas = json.loads(r.text)
-        
-        # count the number of distinct uses of the word
-        c=0
-        for lemma in lemmas:
-            meaning = lemma['meaning']
-            for pos in meaning.keys():
-                c+=len(meaning[pos])
-        print("Found "+str(c)+" distinct usages of "+"\""+word+"\":")
-        for i, lemma in enumerate(lemmas,1): # for each basic form of the word, eg 'China' and 'china'
-            print("Lemma "+str(i)+":")
-            meaning = lemma['meaning']
-            for pos in meaning.keys(): # for each part of speech of the one form of the word, eg 'object' as a noun or verb
-                for usage in meaning[pos]: # for each usage of that word in that pos, eg 'object(n)' as 'an aim' or 'a material thing'
-                    definition = usage['definition']
-                    print(" "*4+pos)
-                    print(" "*8+"definition: "+definition)
-                    if 'example' in usage:
-                        print(" "*8+"example of use:")
-                        print(" "*12+usage['example'])
-                    if 'synonyms' in usage:
-                        print(" "*8+"synonyms of this use:")
-                        print(" "*12+str(usage['synonyms']))
+        # we check if the word submitted is a real word, ie if a webpage
+        # was returned for it. If the word doesn't exist, a HTTP 404 would be returned:
+        if(r.status_code==404):
+            print("That word is either invalid or does not have an entry")
+        else:
+            # if it's a real word, we add it and return the data:
+            self.learn_words.add(word)
+            lemmas = json.loads(r.text)
+            # count the number of distinct uses of the word
+            c=0
+            for lemma in lemmas:
+                meaning = lemma['meaning']
+                for pos in meaning.keys():
+                    c+=len(meaning[pos])
+            print("Found "+str(c)+" distinct usages of "+"\""+word+"\":")
+            for i, lemma in enumerate(lemmas,1): # for each basic form of the word, eg 'China' and 'china'
+                print("Lemma "+str(i)+":")
+                meaning = lemma['meaning']
+                for pos in meaning.keys(): # for each part of speech of the one form of the word, eg 'object' as a noun or verb
+                    for usage in meaning[pos]: # for each usage of that word in that pos, eg 'object(n)' as 'an aim' or 'a material thing'
+                        definition = usage['definition']
+                        print(" "*4+pos)
+                        print(" "*8+"definition: "+definition)
+                        if 'example' in usage:
+                            print(" "*8+"example of use:")
+                            print(" "*12+usage['example'])
+                        if 'synonyms' in usage:
+                            print(" "*8+"synonyms of this use:")
+                            print(" "*12+str(usage['synonyms']))
+
+    def add_vocab(self, word: str, lang: str='en'):
+        """
+        Add a word to the set of words to be learned, if it is a real word.
+        word: str, the word to be added. If it is not a real word or the set
+            learn_words already contains that word, nothing happens
+        lang: str, the language of the word to be added. Defaults to English.
+        """
+        r = requests.get('https://mydictionaryapi.appspot.com', params={'define': word, 'lang': lang})
+        if(r.status_code==404):
+            print("That word is either invalid or does not have an entry")
+        else:
+            self.learn_words.add(word)
+    
+    def remove_vocab(self, word: str):
+        """
+        Remove a word from the words to be learned, if it exists
+        word: str, the word to be removed. If the set learn_words
+            does not contain word, nothing happens.
+        """
+        self.learn_words.discard(word)
 
 
 e = Enlightenmint()
-e.define('object')
+e.define('saw')
+#r = requests.get('https://mydictionaryapi.appspot.com', params={'define': 'lsw', 'lang': 'en'})
+#print(r.status_code)
+#lemmas = json.loads(r.text)
+#print('ccc')
+#print(r)
+#print(lemmas)
+#e.define('bind')
