@@ -104,7 +104,10 @@ class Enlightenmint:
         vocab = list(self.learn_words)
         i = random.randrange(len(vocab))
         word = vocab[i]
-        dm.words(bga=word, bgb=word)
+        a = dm.words(rel_bga=word, md='d,f', max=100)
+        b = dm.words(rel_bgb=word, md='d,f', max=100)
+
+
 
     def get_vocab(self):
         """
@@ -127,9 +130,9 @@ class Enlightenmint:
     
     def save_user(self, filename: str):
         """
-        Save the current vocabulary list learn_vocab into a .json named
-        after the provided file name.
-        filename: str, the filename of the .json to be saved
+        Save the current vocabulary list learn_vocab into a .json in the users folder
+        named after the provided file name.
+        filename: str, the filename of the .json to be saved in the users folder
         """
         with open('users/'+filename+'.json', 'w') as outfile:
             json.dump(list(self.learn_words), outfile)
@@ -137,7 +140,8 @@ class Enlightenmint:
 # test stuff below
 
 e = Enlightenmint()
-e.define('saw')
+e.define('moiety')
+""" e.define('saw')
 e.define('wack')
 e.define('inexorable')
 e.remove_vocab('wick')
@@ -147,7 +151,7 @@ e.save_user('eris')
 
 print(e.get_vocab())
 e.load_user('users/sator.json')
-print(e.get_vocab())
+print(e.get_vocab()) """
 
 
 #r = requests.get('https://mydictionaryapi.appspot.com', params={'define': 'lsw', 'lang': 'en'})
