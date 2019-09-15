@@ -62,7 +62,7 @@ class Enlightenmint:
             ret.append("Found "+str(c)+" distinct usage(s) of "+"\""+word+"\":\n")
             for i, lemma in enumerate(lemmas,1): # for each basic form of the word, eg 'China' and 'china'
                 print("Lemma "+str(i)+":")
-                ret.append("Lemma "+str(i)+":\n")
+                ret.append("Based on Root "+str(i)+":\n")
                 meaning = lemma['meaning']
                 for pos in meaning.keys(): # for each part of speech of the one form of the word, eg 'object' as a noun or verb
                     for usage in meaning[pos]: # for each usage of that word in that pos, eg 'object(n)' as 'an aim' or 'a material thing'

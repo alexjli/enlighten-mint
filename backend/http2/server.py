@@ -44,6 +44,7 @@ class HTTPServerRequestHandler(BaseHTTPRequestHandler):
                 json.dump(definitions, outfile)
             with open('current_word', 'w') as outfile:
                 outfile.write(query)
+            mint.save_user(usr)
 
     def do_GET(self):
         if self.path == '/':
@@ -72,13 +73,18 @@ class HTTPServerRequestHandler(BaseHTTPRequestHandler):
 def run():
     try:
         print('Starting server on port %d...' % port)
-        # mint.load_user(usr)
+        try:
+            mint.load_user('users/'+usr+'.json')
+        except:
+            with open('users/'+usr+'.json', 'w') as outfile:
+                json.dump([], outfile)
+            mint.load_user('users/'+usr+'.json')
         server_address = (LOCALHOST_IP, port)
         httpd = HTTPServer(server_address, HTTPServerRequestHandler)
         print('Running server...')
         httpd.serve_forever()
     except KeyboardInterrupt:
         print('\nKeyboardInterrupt detected, shutting down server...')
-        # mint.save_user(usr)
+        mint.save_user(usr)
         httpd.socket.close()
 run()

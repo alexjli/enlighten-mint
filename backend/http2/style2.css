@@ -34,8 +34,8 @@ body {
   }
 
 a:link, a:visited {
-  background-color: DarkGreen;
-  color: white;
+  background-color: White;
+  color: DeepSkyBlue;
   padding: 15px 25px;
   text-align: center;
   text-decoration: none;
@@ -43,5 +43,5 @@ a:link, a:visited {
 }
 
 a:hover, a:active {
-  background-color: Green;
+  color: SkyBlue;
 }
