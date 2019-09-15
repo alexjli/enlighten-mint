@@ -114,6 +114,27 @@ class Enlightenmint:
         """
         return list(self.learn_words)
 
+    def load_user(self, filepath: str):
+        """
+        Load the vocabulary of a certain user from the provided .json file,
+        setting the learn_vocab list to the words associated with that user.
+        Overwrites the current learn_vocab list.
+        filepath: str, a filepath to the .json to be loaded.
+        """
+        with open(filepath) as json_file:
+            data=json.load(json_file)
+            self.learn_words=set(data)
+    
+    def save_user(self, filename: str):
+        """
+        Save the current vocabulary list learn_vocab into a .json named
+        after the provided file name.
+        filename: str, the filename of the .json to be saved
+        """
+        with open(filename+'.json', 'w') as outfile:
+            json.dump(list(self.learn_words), outfile)
+
+
 
 e = Enlightenmint()
 e.define('saw')
@@ -122,7 +143,17 @@ e.define('inexorable')
 e.remove_vocab('wick')
 e.add_vocab('blahsdf')
 e.remove_vocab('saw')
+e.save_user('sator')
+
 print(e.get_vocab())
+e.load_user('iii.json')
+print(e.get_vocab())
+e.load_user('sator.json')
+print(e.get_vocab())
+e.load_user('users/sator.json')
+print(e.get_vocab())
+
+
 #r = requests.get('https://mydictionaryapi.appspot.com', params={'define': 'lsw', 'lang': 'en'})
 #print(r.status_code)
 #lemmas = json.loads(r.text)
