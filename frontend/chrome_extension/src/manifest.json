@@ -1,8 +1,8 @@
 {
-  "name": "Chrome Github Trending Sidebar",
+  "name": "Enlighten Sidebar",
   "version": "0.1.0",
-  "description": "Example chrome sidebar extension to embed an iframe.",
-  "web_accessible_resources": ["entry.js"],
+  "description": "Enlighten-mint sidebar.",
+  "web_accessible_resources": ["entry.js", "background.js"],
   "background": {
     "scripts": [
       "background.js"
@@ -10,14 +10,17 @@
     "persistent": true
   },
   "browser_action": {
-    "default_title": "Chrome Github Trending Sidebar"
+    "default_title": "Enlighten-mint Sidebar"
   },
   "manifest_version": 2,
   "permissions": [
+    "contextMenus",
     "https://*/*",
     "http://*/*",
     "tabs",
+    "webNavigation",
     "webRequest",
-    "webRequestBlocking"
+    "webRequestBlocking",
+    "storage"
   ]
 }

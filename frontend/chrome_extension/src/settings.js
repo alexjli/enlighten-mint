@@ -1,7 +1,6 @@
-
-export const url = 'https://www.google.com'
-export const hosts = 'tools.fouad.org'
-export const iframeHosts = 'https://tools.fouad.org'
+export const url = 'https://www.google.com/search?q=define+'
+export const hosts = 'google.com'
+export const iframeHosts = 'https://www.google.com'
 
 export default {
   hosts, iframeHosts, url
