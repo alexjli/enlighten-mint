@@ -81,7 +81,7 @@ class Enlightenmint:
                             ret.append(" "*8+"synonyms of this use:\n")
                             print(" "*12+str(usage['synonyms']))
                             ret.append(" "*12+str(usage['synonyms'])+"\n")
-            return ''.join(ret)
+            return ret
 
     def add_vocab(self, word: str, lang: str='en'):
         """

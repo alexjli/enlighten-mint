@@ -21,6 +21,9 @@ definitions = JSON.parse(response);
 console.log(query);
 console.log(client)
 
+if (typeof definitions === 'string'){
+  definitions = [definitions]
+}
 
 
 class VocabTerm extends React.Component {
@@ -35,9 +38,14 @@ class VocabTerm extends React.Component {
 
 class Definition extends React.Component {
   render() {
+    const elements = this.props.categories;
     return (
+      React.createElement("div", null,
+      elements.map((item, index) =>
       React.createElement("div", { className: "definition" },
-      React.createElement("p", null, definitions)));
+      React.createElement("p", { key: index }, item)))));
+
+
 
 
   }}
@@ -48,10 +56,7 @@ class Box extends React.Component {
     return (
       React.createElement("div", null,
       React.createElement(VocabTerm, null),
-      React.createElement("h1", { className: "box" },
-      React.createElement(Definition, null))));
-
-
+      React.createElement(Definition, { categories: definitions })));
 
   }}
 

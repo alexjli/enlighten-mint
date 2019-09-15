@@ -7,27 +7,28 @@ body {
 .vocabTerm {
     color: DeepSkyBlue;
     font-size: 48px;
+    font: Helvetica;
+    font-family: sans-serif;
     text-align: center;
   }
 
   .box {
-    background-color: White;
+    background-color:White;
     border: 80px;
-    max-width: 600px;
-    max-height: 250px;
-    width: 15%
-    height: 10%;
-    margin: 0 auto;
-    padding: 10px;
+    width: 600px;
+    height: 250px;
+    margin: auto;
   }
 
   .definition {
     font-size: 28px;
     max-width: 590px;
-    max-height:240px;
     font-family: sans-serif;
     font-weight:normal;
     word-wrap: normal;
     text-align: center;
     padding: 5px;
+    background-color: white;
+    margin: 0 auto;
+    margin-bottom: 10px;
   }
