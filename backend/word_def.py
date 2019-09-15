@@ -1,5 +1,6 @@
 import requests
 import json
+import random
 from datamuse import datamuse
 dm = datamuse.Datamuse()
 
@@ -44,7 +45,7 @@ class Enlightenmint:
         # we check if the word submitted is a real word, ie if a webpage
         # was returned for it. If the word doesn't exist, a HTTP 404 would be returned:
         if(r.status_code==404):
-            print("That word is either invalid or does not have an entry")
+            print("The word "+word+" is either invalid or does not have an entry")
         else:
             # if it's a real word, we add it and return the data:
             self.learn_words.add(word)
@@ -55,7 +56,7 @@ class Enlightenmint:
                 meaning = lemma['meaning']
                 for pos in meaning.keys():
                     c+=len(meaning[pos])
-            print("Found "+str(c)+" distinct usages of "+"\""+word+"\":")
+            print("Found "+str(c)+" distinct usage(s) of "+"\""+word+"\":")
             for i, lemma in enumerate(lemmas,1): # for each basic form of the word, eg 'China' and 'china'
                 print("Lemma "+str(i)+":")
                 meaning = lemma['meaning']
@@ -80,7 +81,7 @@ class Enlightenmint:
         """
         r = requests.get('https://mydictionaryapi.appspot.com', params={'define': word, 'lang': lang})
         if(r.status_code==404):
-            print("That word is either invalid or does not have an entry")
+            print("The word "+word+" is either invalid or does not have an entry")
         else:
             self.learn_words.add(word)
     
@@ -92,9 +93,36 @@ class Enlightenmint:
         """
         self.learn_words.discard(word)
 
+    def find_vocab(self):
+        """
+        Expand the vocab of words to learn by a single commensurate word,
+        where commensurate is evaluated on the criteria of being either
+        related to words the user is currently learning, and of the word
+        being equally obscure (=same likelihood they don't know it)
+        """
+        # select a random word in the vocab
+        vocab = list(self.learn_words)
+        i = random.randrange(len(vocab))
+        word = vocab[i]
+        dm.words(bga=word, bgb=word)
+
+    def get_vocab(self):
+        """
+        Return a list of the vocab words the user is currently learning.
+
+        return: list of str, the vocab words the user is currently learning.
+        """
+        return list(self.learn_words)
+
 
 e = Enlightenmint()
 e.define('saw')
+e.define('wack')
+e.define('inexorable')
+e.remove_vocab('wick')
+e.add_vocab('blahsdf')
+e.remove_vocab('saw')
+print(e.get_vocab())
 #r = requests.get('https://mydictionaryapi.appspot.com', params={'define': 'lsw', 'lang': 'en'})
 #print(r.status_code)
 #lemmas = json.loads(r.text)

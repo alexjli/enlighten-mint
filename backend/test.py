@@ -31,10 +31,18 @@ print('food' in words.words())"""
 #print(r.text)
 
 
-import requests
+#import requests
 # we will be using requests to query the unofficial Google Dictionary API 
 # from https://googledictionaryapi.eu-gb.mybluemix.net/
 
-r = requests.get('https://mydictionaryapi.appspot.com', params={'define': 'test'})
-print(r.text["meaning"])
+#r = requests.get('https://mydictionaryapi.appspot.com', params={'define': 'test'})
+#print(r.text["meaning"])
 
+
+
+from datamuse import datamuse
+dm = datamuse.Datamuse()
+w = dm.words(rel_jjb='industrialization', md='d,f', max=10)
+for word in w:
+    print(word['word'])
+    print(word['tags'])
