@@ -1,0 +1,25 @@
+.vocabTerm {
+    color: DeepSkyBlue;
+    font-size: 48px;
+    font: Helvetica;
+    font-family: sans-serif;
+    text-align: center;
+  }
+  
+  .box {
+    background-color:White;
+    border: 80px;
+    width: 600px;
+    height: 250px;
+    margin: auto;
+  }
+  
+  .definition {
+    font-size: 28px;
+    width: 590px;
+    height:240px;
+    font-family: sans-serif;
+    font-weight:normal;
+    word-wrap: normal;
+  }
+  
