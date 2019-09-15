@@ -131,10 +131,10 @@ class Enlightenmint:
         after the provided file name.
         filename: str, the filename of the .json to be saved
         """
-        with open(filename+'.json', 'w') as outfile:
+        with open('users/'+filename+'.json', 'w') as outfile:
             json.dump(list(self.learn_words), outfile)
 
-
+# test stuff below
 
 e = Enlightenmint()
 e.define('saw')
@@ -143,12 +143,8 @@ e.define('inexorable')
 e.remove_vocab('wick')
 e.add_vocab('blahsdf')
 e.remove_vocab('saw')
-e.save_user('sator')
+e.save_user('eris')
 
-print(e.get_vocab())
-e.load_user('iii.json')
-print(e.get_vocab())
-e.load_user('sator.json')
 print(e.get_vocab())
 e.load_user('users/sator.json')
 print(e.get_vocab())
