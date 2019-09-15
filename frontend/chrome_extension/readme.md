@@ -1,3 +1,5 @@
+# Chrome Extension for Enlighten-mint
+An edit of the following sidebar
 # Github Trending Sidebar example
 
 Download the example [or clone the repo](https://github.com/segmentio/chrome-sidebar):
