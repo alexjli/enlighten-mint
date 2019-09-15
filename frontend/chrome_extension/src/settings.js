@@ -1,6 +1,6 @@
-export const url = 'https://www.google.com/search?q=define+'
-export const hosts = 'google.com'
-export const iframeHosts = 'https://www.google.com'
+export const url = 'http://127.0.0.1:8080/define.html'
+export const hosts = 'localhost'
+export const iframeHosts = 'localhost'
 
 export default {
   hosts, iframeHosts, url

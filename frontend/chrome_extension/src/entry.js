@@ -52,7 +52,7 @@ function boot() {
 
 function setURL(vocab){
   const iframe = document.getElementById("enlightenmint_iframe");
-  iframe.src = url + vocab;
+  iframe.src = url + "?" + vocab;
 }
 
 export default FrameMint
