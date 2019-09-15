@@ -1,12 +1,12 @@
 body {
   background-color: LightGray;
+  font: Helvetica;
+  font-family: sans-serif;
 }
 
 .vocabTerm {
     color: DeepSkyBlue;
     font-size: 48px;
-    font: Helvetica;
-    font-family: sans-serif;
     text-align: center;
   }
 

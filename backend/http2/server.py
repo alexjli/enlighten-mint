@@ -38,6 +38,8 @@ class HTTPServerRequestHandler(BaseHTTPRequestHandler):
             print(self.path)
             query = query_splice[1].lower()
             definitions = mint.define(query)
+            print(query)
+            print(definitions)
             with open(query+'.json', 'w') as outfile:
                 json.dump(definitions, outfile)
             with open('current_word', 'w') as outfile:
